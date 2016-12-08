@@ -9,7 +9,7 @@ WINDOW_AFTER = 1280;
 TTL_CUT_AMP = 4;
 
 % Filename
-FILENAME = '/media/windows/Users/Martin/Documents/repos/EEG-processing/EEG recorder_2015v2.5/data/01-12-2016_13.31_v1_ppn4_meting1.mat.mat'
+FILENAME = '/media/windows/Users/Martin/Documents/repos/EEG-processing/EEG recorder_2015v2.5/data/01-12-2016_13.31_v1_ppn4_meting1.mat.mat';
 
 % Get filename
 if isempty(FILENAME)
@@ -35,6 +35,52 @@ uisave({'data'},'Name');
 
 % TODO: fix the following code
 
+% Fast Fourier Transform code
+% chanfft = channels to show / use
+% test2 = #channels to show / use
+% fs = frames per second = sample rate
+% y = data
+function plot_fft_Callback(hObject, eventdata, handles)
+global fs; global chanfft; global data2;y = data2;
+disp 'plot_fft_Callback';
+fs = str2double(get(handles.fs,'String'))
+chanfft = get(handles.chanfft,'String');
+chanfft = eval(chanfft);
+test2 = length(chanfft);
+
+% Regular plot
+h5 = figure;
+        dur = length(y(:,chanfft(1)))/fs;
+        time = [0:dur/length(y(:,chanfft(1))):dur]';
+        time = time(1:length(y(:,chanfft(1))),1);
+for k = 1:test2
+        ax(k) = subplot(test2,1,k);
+        plot(time,y(:,chanfft(k)),'b')
+        ylabel('Amplitude (V)')
+        linkaxes(ax,'x')
+        if k ==1
+            title('{\bf EEG of selected channels in the time domain}')
+        end
+end
+xlabel('time (s)')
+
+% FFT plot
+h5 = figure;
+        m = length(y(:,chanfft(1)));
+        n = pow2(nextpow2(m));
+for k = 1:test2
+        ax2(k) = subplot(test2,1,k); % create the subplot
+        dfty1 = fft(y(:,chanfft(k)),n); % do the transform? >> find fft documentation
+        f = (0:n-1)*(fs/n); % correct x-axis for sample rate?
+        p = dfty1.*conj(dfty1)/n;   % >> find conj documentation
+        plot(f(1:floor(n/2)),p(1:floor(n/2)),'b')
+        ylabel('FFT (V)')
+        linkaxes(ax2,'x')
+        if k ==1
+            title('{\bf EEG of selected channels in the frequency domain}')
+        end
+end
+xlabel('Frequency (Hz)')
 
 % %% Filter data code
 % % l1 = low frequency
