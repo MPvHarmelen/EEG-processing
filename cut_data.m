@@ -1,7 +1,11 @@
 %% cut_data: cut data, only works on 2D data
-function [cut_sections] = cut_data(data, cut_col, window_before, window_after, ttl_cut_amp)
+function cut_sections = cut_data(data, cut_col, window_before, window_after, ttl_cut_amp)
+    [d1 d2 d3] = size(data);
+    if d3 > 1
+        errordlg('This function only accepts 2D input','Dimension error');
+    end
     % Squash the data by one time step to get the delta
-    if size(data,2) > 8
+    if d2 > 8
         data(1:end-1,9:end) = diff(data(:,9:end)); % jonas edit: replace TLL signal by differentiated signal
     end
 

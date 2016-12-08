@@ -1,5 +1,5 @@
 % Column number to use for data cutting (mostly 10)
-COL_N = 10;
+CUT_COL = 10;
 
 % Number of time steps to include in each cut
 WINDOW_BEFORE = 52;
@@ -22,15 +22,11 @@ end
 
 % Load data
 load(FILENAME); % data is saved in the variable `data`
-[a b c] = size(data);
-if c>1
-    errordlg('This function only accepts 2D input','Dimension error');
-end
 
+% data must be saved in the variable `data`, so overwrite is necessary
+data = cut_data(data, CUT_COL, WINDOW_BEFORE, WINDOW_AFTER, TTL_CUT_AMP);
 
 % Save data
-% data must be saved in the variable `data`, so rename is necessary
-data = cut_sections;
 fprintf('%i\n', size(data));
 uisave({'data'},'Name');
 
