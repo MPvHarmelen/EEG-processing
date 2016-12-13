@@ -1,5 +1,11 @@
-input_dir = uigetdir('', 'Select folder to read from');
-output_dir = uigetdir('', 'Select folder to save to');
+input_dir = uigetdir('', 'Select a folder to read from');
+if ~input_dir
+    error('Please select a folder to read from');
+end
+output_dir = uigetdir('', 'Select a folder to save to');
+if ~output_dir
+    error('Please select a folder to save to');
+end
 
 % From http://stackoverflow.com/questions/2652630/how-to-get-all-files-under-a-specific-directory-in-matlab
 % Get the data for the current directory
