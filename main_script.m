@@ -1,16 +1,29 @@
-% Column number to use for data cutting (mostly 10)
-CUT_COL = 10;
+% ------- Choices
+% Channels to use for Fourier analysis
+CHANNELS = [1:4];
 
 % Number of time steps to include in each cut
 WINDOW_BEFORE = 52;
 WINDOW_AFTER = 1280;
 
+
+% ------- Information about the data
+SAMPLE_RATE = 256;
+% Column number to use for data cutting (mostly 10)
+CUT_COL = 10;
+
 % Amplitude used to cut TTL
 TTL_CUT_AMP = 4;
 
-% Filename
-FILENAME = '/media/windows/Users/Martin/Documents/repos/EEG-processing/EEG recorder_2015v2.5/data/01-12-2016_13.31_v1_ppn4_meting1.mat.mat';
+% Filename (may be left empty)
+% FILENAME = '/media/windows/Users/Martin/Documents/repos/EEG-processing/EEG recorder_2015v2.5/data/01-12-2016_13.31_v1_ppn4_meting1.mat.filtered.mat';
 
+
+% Fix missing variables:
+if ~exist('FILENAME', 'var') FILENAME = []; end
+
+% Load data
+% data is saved in the variable `data`
 % Get filename
 if isempty(FILENAME)
     [filename, pathname] = uigetfile({'*.mat';},'Select a 2D array');
@@ -18,19 +31,24 @@ if isempty(FILENAME)
     fprintf('pathname: %s\n', pathname);
     FILENAME = strcat(pathname, filename);
 end
+load(FILENAME);
 
 
-% Load data
-load(FILENAME); % data is saved in the variable `data`
 
+% Cut data
 % data must be saved in the variable `data`, so overwrite is necessary
-data = cut_data(data, CUT_COL, WINDOW_BEFORE, WINDOW_AFTER, TTL_CUT_AMP);
+% data = cut_data(data, CUT_COL, WINDOW_BEFORE, WINDOW_AFTER, TTL_CUT_AMP);
 
-% Save data
-fprintf('%i\n', size(data));
-uisave({'data'},'Name');
+% Calculate power of data
+power = data_power(data, CHANNELS);
 
+% Save (cut) data
+% fprintf('Saving data of size: %i\n', size(data));
+% uisave({'data'},'Name');
 
+% Save power
+fprintf('Saving data of size: %i\n', size(power));
+uisave({'power'},'Name');
 
 
 
