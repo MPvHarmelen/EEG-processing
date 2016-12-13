@@ -2,7 +2,7 @@
 function cut_sections = cut_data(data, cut_col, window_before, window_after, ttl_cut_amp)
     [d1 d2 d3] = size(data);
     if d3 > 1
-        errordlg('This function only accepts 2D input','Dimension error');
+        error('This function only accepts 2D input','Dimension error');
     end
     % Squash the data by one time step to get the delta
     if d2 > 8
