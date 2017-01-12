@@ -3,5 +3,5 @@
 - De software bestaat uit een hoofdprogramma en verschillende tools. Het hoofdprogramma heet EEGrecorder (ook wel het main screen), maar daarin ook code voor recording (het binnenhalen van signaal vanaf de hardware).
 - De code voor de tools die je in de menu's vindt, vindt je in subfolder met "menues/functies"
     analyses tools hebben hun eigen stukje script (dus .m file).
-    
+
 Hij zit in F2.23
