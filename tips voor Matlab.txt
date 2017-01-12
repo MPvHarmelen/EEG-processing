@@ -5,3 +5,9 @@
     analyses tools hebben hun eigen stukje script (dus .m file).
 
 Hij zit in F2.23
+
+It look like Wednesday has the most useful code.
+
+
+2017-01-12
+Main loop at: EEG recorder_2015v2.5/EEG_recorder.m:383
