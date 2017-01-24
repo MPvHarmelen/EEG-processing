@@ -1,4 +1,16 @@
 function varargout = EEG_recorder(varargin)
+global OUTPUT_BANDS;
+global OUTPUT_FILENAMES;
+global OUTPUT_DELAY;
+OUTPUT_DELAY = 0.5; % seconds
+OUTPUT_BANDS = [
+     8 13
+    16 31
+]; % Hz
+OUTPUT_FILENAMES = {
+    'alpha.txt'
+    'beta.txt'
+};
 % EEG_RECORDER MATLAB code for EEG_recorder.fig
 %      EEG_RECORDER, by itself, creates a new EEG_RECORDER or raises the existing
 %      singleton*.
@@ -126,6 +138,7 @@ global dur_aq
 global Fs
 global num_chan
 global data; data = [];
+later_data = [];
 global chan_d
 global fft_l
 global preview
@@ -146,6 +159,9 @@ global channel_5
 global channel_6
 global channel_7
 global channel_8
+global OUTPUT_BANDS
+global OUTPUT_FILENAMES
+global OUTPUT_DELAY
 
 ai = daqfind;
 if ~isempty(ai)
@@ -422,6 +438,10 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         Yo      = fft(data(:,1),NFFT)/L;
         fo      = Fs/2*linspace(0,1,NFFT/2+1);
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
+
+        % Added by Martin
+        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
         plot(handles.axes2,fo(freqindex1:freqindex2),spectraldata(freqindex1:freqindex2)+a(fft_selection-plot_counter)/10,'r'),hold(handles.axes2,'on')
@@ -433,6 +453,10 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         Yo      = fft(data(:,2),NFFT)/L;
         fo      = Fs/2*linspace(0,1,NFFT/2+1);
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
+
+        % Added by Martin
+        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
         plot(handles.axes2,fo(freqindex1:freqindex2),spectraldata(freqindex1:freqindex2)+a(fft_selection-plot_counter)/10,'r'); hold(handles.axes2,'on')
@@ -444,6 +468,10 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         Yo = fft(data(:,3),NFFT)/L;
         fo = Fs/2*linspace(0,1,NFFT/2+1);
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
+
+        % Added by Martin
+        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
         plot(handles.axes2,fo(freqindex1:freqindex2),spectraldata(freqindex1:freqindex2)+a(fft_selection-plot_counter)/10,'r'); hold(handles.axes2,'on')
@@ -455,6 +483,10 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         Yo = fft(data(:,4),NFFT)/L;
         fo = Fs/2*linspace(0,1,NFFT/2+1);
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
+
+        % Added by Martin
+        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
         plot(handles.axes2,fo(freqindex1:freqindex2),spectraldata(freqindex1:freqindex2)+a(fft_selection-plot_counter)/10,'r'); hold(handles.axes2,'on')
@@ -466,6 +498,10 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         Yo = fft(data(:,5),NFFT)/L;
         fo = Fs/2*linspace(0,1,NFFT/2+1);
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
+
+        % Added by Martin
+        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
         plot(handles.axes2,fo(freqindex1:freqindex2),spectraldata(freqindex1:freqindex2)+a(fft_selection-plot_counter)/10,'r');hold(handles.axes2,'on')
@@ -477,6 +513,10 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         Yo = fft(data(:,6),NFFT)/L;
         fo = Fs/2*linspace(0,1,NFFT/2+1);
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
+
+        % Added by Martin
+        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
         plot(handles.axes2,fo(freqindex1:freqindex2),spectraldata(freqindex1:freqindex2)+a(fft_selection-plot_counter)/10,'r'); hold(handles.axes2,'on')
@@ -488,6 +528,10 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         Yo = fft(data(:,7),NFFT)/L;
         fo = Fs/2*linspace(0,1,NFFT/2+1);
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
+
+        % Added by Martin
+        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
         plot(handles.axes2,fo(freqindex1:freqindex2),spectraldata(freqindex1:freqindex2)+a(fft_selection-plot_counter)/10,'r'); hold(handles.axes2,'on')
@@ -499,10 +543,16 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         Yo = fft(data(:,8),NFFT)/L;
         fo = Fs/2*linspace(0,1,NFFT/2+1);
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
+
+        % Added by Martin
+        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
         plot(handles.axes2,fo(freqindex1:freqindex2),spectraldata(freqindex1:freqindex2)+a(fft_selection-plot_counter)/10,'r'); hold(handles.axes2,'on')
     end
+
+    later_data = power_save(later_data, OUTPUT_FILENAMES, OUTPUT_DELAY)
 
     drawnow; hold(handles.axes2,'off')
 end
