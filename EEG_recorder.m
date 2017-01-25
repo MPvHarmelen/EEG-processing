@@ -138,7 +138,7 @@ global dur_aq
 global Fs
 global num_chan
 global data; data = [];
-later_data = [];
+later_data = power_init(OUTPUT_BANDS);
 global chan_d
 global fft_l
 global preview
