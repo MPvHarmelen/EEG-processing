@@ -1,5 +1,5 @@
-%% power_buffer: Save the power for later
-function [later_data] = power_buffer(later_data, spectral_data, axis_values, fre_bands)
+%% eeg_power_buffer: Save the power for later
+function [later_data] = eeg_power_buffer(later_data, spectral_data, axis_values, fre_bands)
     % different frequency bands aren't the same size. Make later_data a cell array
 
     if ~isempty(later_data)

@@ -138,7 +138,7 @@ global dur_aq
 global Fs
 global num_chan
 global data; data = [];
-later_data = power_init(OUTPUT_BANDS);
+later_data = eeg_power_init(OUTPUT_BANDS);
 global chan_d
 global fft_l
 global preview
@@ -440,7 +440,7 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
 
         % Added by Martin
-        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+        later_data = eeg_power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
 
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
@@ -455,7 +455,7 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
 
         % Added by Martin
-        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+        later_data = eeg_power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
 
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
@@ -470,7 +470,7 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
 
         % Added by Martin
-        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+        later_data = eeg_power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
 
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
@@ -485,7 +485,7 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
 
         % Added by Martin
-        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+        later_data = eeg_power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
 
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
@@ -500,7 +500,7 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
 
         % Added by Martin
-        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+        later_data = eeg_power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
 
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
@@ -515,7 +515,7 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
 
         % Added by Martin
-        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+        later_data = eeg_power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
 
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
@@ -530,7 +530,7 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
 
         % Added by Martin
-        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+        later_data = eeg_power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
 
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
@@ -545,14 +545,14 @@ while ai.SamplesAcquired < dur_aq * Fs  && manualstop == 0
         spectraldata = 2*abs(Yo(1:NFFT/2+1));
 
         % Added by Martin
-        later_data = power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
+        later_data = eeg_power_buffer(later_data, spectraldata, fo, OUTPUT_BANDS)
 
         freqindex1 = find(fo>=minfreq,1);
         freqindex2 = find(fo>=maxfreq,1);
         plot(handles.axes2,fo(freqindex1:freqindex2),spectraldata(freqindex1:freqindex2)+a(fft_selection-plot_counter)/10,'r'); hold(handles.axes2,'on')
     end
 
-    later_data = power_save(later_data, OUTPUT_FILENAMES, OUTPUT_DELAY)
+    later_data = eeg_power_save(later_data, OUTPUT_FILENAMES, OUTPUT_DELAY)
 
     drawnow; hold(handles.axes2,'off')
 end

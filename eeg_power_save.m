@@ -1,5 +1,5 @@
-%% power_save: Calculate some resulting value from the data and save it to a file
-function [later_data] = power_save(later_data, filenames, delay)
+%% eeg_power_save: Calculate some resulting value from the data and save it to a file
+function [later_data] = eeg_power_save(later_data, filenames, delay)
     % Get time since last output
     global last_output_time;
     if isempty(last_output_time)
@@ -18,5 +18,5 @@ function [later_data] = power_save(later_data, filenames, delay)
             fprintf(file, '%.50f\n', maximum);
             fclose(file);
         end
-        later_data = power_init(later_data);
+        later_data = eeg_power_init(later_data);
     end
