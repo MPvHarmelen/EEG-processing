@@ -7,10 +7,10 @@ function [later_data] = eeg_power_save(later_data, filenames, delay)
     end
     new_output_time = clock;
     duration = etime(new_output_time, last_output_time);
-    last_output_time = new_output_time;
 
     % If it's time to do stuff, output all values
     if duration >= delay
+        last_output_time = new_output_time;
         for i=1:length(later_data)
             maximum = max(later_data{i}(:));
             %the_very_average = mean(later_data(:));
