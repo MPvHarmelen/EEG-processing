@@ -138,7 +138,6 @@ global dur_aq
 global Fs
 global num_chan
 global data; data = [];
-later_data = eeg_power_init(OUTPUT_BANDS);
 global chan_d
 global fft_l
 global preview
@@ -162,6 +161,7 @@ global channel_8
 global OUTPUT_BANDS
 global OUTPUT_FILENAMES
 global OUTPUT_DELAY
+later_data = eeg_power_init(OUTPUT_BANDS);
 
 ai = daqfind;
 if ~isempty(ai)
