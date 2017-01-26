@@ -12,10 +12,9 @@ function [later_data] = eeg_power_save(later_data, filenames, delay)
     if duration >= delay
         last_output_time = new_output_time;
         for i=1:length(later_data)
-            maximum = max(later_data{i}(:));
             %the_very_average = mean(later_data(:));
             file = fopen(filenames{i}, 'w');
-            fprintf(file, '%.50f\n', maximum);
+            fprintf(file, '%.50f\n', eeg_power_processing(later_data{i}));
             fclose(file);
         end
         later_data = eeg_power_init(later_data);
