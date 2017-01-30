@@ -18,4 +18,5 @@ fileList = {dirData(~dirIndex).name}';
 input_files = cellfun(@(filename) fullfile(input_dir, filename), fileList, 'UniformOutput', false);
 output_files = cellfun(@(filename) fullfile(output_dir, filename), fileList, 'UniformOutput', false);
 
+% Process the file names. `batch_function` reads and saves each file.
 cellfun(@batch_function, input_files, output_files, 'UniformOutput', false)

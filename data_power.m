@@ -1,3 +1,7 @@
+%% data_power: convert time EEG-data to power data
+%% - data       time EEG-data to convert
+%% - channels   channels to calculate the power of
+%% - powers     the calculated power data
 function powers = data_power(data, channels)
     % http://www.wikiwand.com/en/Fast_Fourier_transform#/Definition_and_speed
     % says "The best known use of the Cooley–Tukey algorithm is to divide the

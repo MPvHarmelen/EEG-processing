@@ -1,4 +1,6 @@
 %% batch_function: A function to execute on all data
+%% - input_file     file to read the variable `data` or `power` from
+%% - output_file    file to save the variable `data` or `power` to
 function batch_function(input_file, output_file)
     % ------- Choices
     % Variable to save
