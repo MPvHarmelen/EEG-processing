@@ -22,7 +22,7 @@ type `EEG_recorder` in the Matlab prompt and hit return. The program will automa
 the files `alpha.txt` and `beta.txt` with the calculated alpha and bèta values.
 
 To change how this value is calculated from the total power spectrum, change the function in `eeg_power_processing.m`.
-It gets a frequency x time matrix and should output whatever should printed to the file. To change how long data must
+It gets a frequency x time matrix and should output whatever should be printed to the file. To change how long data must
 be agregated before it is processed, which frequency bands to process and where to save the resulting values, change
 the globals `OUTPUT_DELAY`, `OUTPUT_BANDS` and `OUTPUT_FILENAMES` (respectively) in the first few lines of `EEG_recorder.m`.
 `OUTPUT_DELAY` is in seconds, `OUTPUT_BANDS` in Hertz and paths in `OUTPUT_FILENAMES` are relative to the current working
